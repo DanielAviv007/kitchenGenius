@@ -27,17 +27,17 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:textSize="26sp"
                 android:padding="8dp"
                 />
             <ImageView
                 android:layout_weight="1"
-                android:src="@drawable/ic_empty_star"
+                android:src="@drawable/ic_add_to_favourite"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
-                android:minWidth="60dp"
-                android:minHeight="60dp"
+                android:minWidth="50dp"
+                android:minHeight="50dp"
 
                 android:layout_height="wrap_content"/>
         </LinearLayout>

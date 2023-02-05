@@ -57,7 +57,7 @@ public class FeedActivity extends AppCompatActivity {
         });
 
         spinner = findViewById(R.id.spinner_tags);
-        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.tags, R.layout.spinner_text);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this, R.array.categories, R.layout.spinner_text);
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
