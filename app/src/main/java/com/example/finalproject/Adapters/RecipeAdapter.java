@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,16 +24,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     List<Recipe> list;
     RecipeClickListener listener;
 
-
     public RecipeAdapter(Context context, List<Recipe> list, RecipeClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
     }
-
-
-
-
 
     @NonNull
     @Override
@@ -56,6 +52,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
             }
         });
 
+        holder.imageView_addToFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),String.format("%s was added to favourites", holder.textView_title.getText().toString()),Toast.LENGTH_SHORT).show();
+                holder.imageView_addToFavourite.setImageResource(R.drawable.ic_added_to_favourites);
+            }
+        });
     }
 
     @Override
@@ -70,6 +73,7 @@ class  RecipeViewHolder extends RecyclerView.ViewHolder{
     TextView textView_time;
     TextView textView_likes;
     ImageView imageView_dish;
+    ImageView imageView_addToFavourite;
 
     public RecipeViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -79,5 +83,6 @@ class  RecipeViewHolder extends RecyclerView.ViewHolder{
         textView_time = itemView.findViewById(R.id.textView_time);
         textView_likes = itemView.findViewById(R.id.textView_likes);
         imageView_dish = itemView.findViewById(R.id.imageView_dish);
+        imageView_addToFavourite = itemView.findViewById(R.id.imageView_fav);
     }
 }

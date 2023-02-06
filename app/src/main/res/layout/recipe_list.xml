@@ -33,6 +33,7 @@
                 />
             <ImageView
                 android:layout_weight="1"
+                android:id="@+id/imageView_fav"
                 android:src="@drawable/ic_add_to_favourite"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
