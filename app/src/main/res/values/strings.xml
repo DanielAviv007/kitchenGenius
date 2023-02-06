@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">final project</string>
+    <string name="app_name">Kitchen Genius</string>
     <string name="api_key">ad99611725964f97bdeb031cda38a0ec</string>
 
-    <string-array name="tags">
+    <string-array name="categories">
         <item>main course</item>
         <item>side dish</item>
         <item>dessert</item>
@@ -18,6 +18,6 @@
         <item>snack</item>
         <item>drink</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
