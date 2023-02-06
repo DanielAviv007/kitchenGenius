@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addRecipeActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView_new_recipe_image"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@mipmap/ic_launcher">
+        </ImageView>
+        <Button
+            android:id="@+id/selectImageBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRESS ME!"
+            android:textColor="@color/black">
+        </Button>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/recipeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter recipe title..."
+        android:textColorHint="#7F7F7F"
+        android:inputType="text"
+        android:background="@drawable/edit_form"
+        android:padding="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/ingredientName"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingredient Name"
+            android:textColorHint="#7F7F7F"
+            android:inputType="text"
+            android:background="@drawable/edit_form"
+            android:padding="16dp"
+            />
+
+        <Spinner
+            android:id="@+id/unitSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/unit_options" />
+
+        <EditText
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Quantity"
+            android:inputType="number"
+            android:textColorHint="#7F7F7F" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/prepTime"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_form"
+            android:drawableLeft="@drawable/ic_time"
+            android:drawablePadding="8dp"
+            android:padding="8dp"/>
+        <ImageView
+            android:src="@drawable/ic_servings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+        <Spinner
+            android:id="@+id/servingsSpinner"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/servings_options" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/instructions"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/edit_form"
+        android:hint="Instructions"
+        android:textColorHint="#7F7F7F"/>
+    <Button
+        android:id="@+id/postBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/yellow"
+        android:padding="16dp"
+        android:text="Submit"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"/>
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class FeedActivity extends AppCompatActivity {
     Spinner spinner;
     List<String> tags = new ArrayList<>();
     SearchView searchView;
+    ImageView addRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,17 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        addRecipe = findViewById(R.id.imageView_add_new_recipe);
+        addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FeedActivity.this,"Button has been clicked",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(FeedActivity.this, addRecipeActivity.class);
+                FeedActivity.this.startActivity(intent);
             }
         });
 
