@@ -51,8 +51,8 @@ public class addRecipeActivity extends AppCompatActivity {
         recipeTitle = findViewById(R.id.recipeTitle);
 
         ingredients[0] = new IngredientWidget(findViewById(R.id.mainIngredient1Name), findViewById(R.id.unitSpinner1), findViewById(R.id.quantity1));
-        ingredients[1] = new IngredientWidget(findViewById(R.id.mainIngredient1Name), findViewById(R.id.unitSpinner2), findViewById(R.id.quantity2));
-        ingredients[2] = new IngredientWidget(findViewById(R.id.mainIngredient1Name), findViewById(R.id.unitSpinner3), findViewById(R.id.quantity3));
+        ingredients[1] = new IngredientWidget(findViewById(R.id.mainIngredient2Name), findViewById(R.id.unitSpinner2), findViewById(R.id.quantity2));
+        ingredients[2] = new IngredientWidget(findViewById(R.id.mainIngredient3Name), findViewById(R.id.unitSpinner3), findViewById(R.id.quantity3));
 
         prepTime = findViewById(R.id.prepTime);
         servings = findViewById(R.id.servingsSpinner);
@@ -116,7 +116,7 @@ public class addRecipeActivity extends AppCompatActivity {
                         }
                     });
         String s_recipeTitle = recipeTitle.getText().toString();
-        String s_instruction = recipeTitle.getText().toString();
+        String s_instruction = instruction.getText().toString();
         String[] ingredients_names = {ingredients[0].ingredientName.getText().toString(), ingredients[1].ingredientName.getText().toString(), ingredients[2].ingredientName.getText().toString()};
         String[] ingredients_units = {ingredients[0].unit.getSelectedItem().toString(), ingredients[1].unit.getSelectedItem().toString(), ingredients[2].unit.getSelectedItem().toString()};
         Double[] ingredients_quantities = {Double.parseDouble(ingredients[0].quantity.getText().toString()), Double.parseDouble(ingredients[1].quantity.getText().toString()), Double.parseDouble(ingredients[2].quantity.getText().toString())};
@@ -134,11 +134,8 @@ public class addRecipeActivity extends AppCompatActivity {
         else if (imageUri == null && (s_instruction == null || s_instruction.isEmpty()))
             Toast.makeText(addRecipeActivity.this, "In order to create a recipe, you must upload an image or fill the instructions", Toast.LENGTH_SHORT).show();
 
-        else {
-            // TODO: Pass original uid
-            new UserRecipe(SystemStorage.getCurrentUID(), s_recipeTitle, "somepath", ings, i_servings, i_prepTime, s_instruction);
-        }
-
+        else
+            new UserRecipe(SystemStorage.getCurrentUID(), s_recipeTitle, imageUri != null ? fileName : "NO_IMAGE", ings, i_servings, i_prepTime, s_instruction);
     }
 
 }

@@ -1,8 +1,11 @@
 package com.example.finalproject.Models;
 
+import com.example.finalproject.Fragments.RegisterFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class UserRecipe {
@@ -27,8 +30,9 @@ public class UserRecipe {
     }
 
     private void uploadToDataBase() {
+        String recipeHashCode = getMd5(this.uid + this.title);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("recipes").child(this.uid + this.title);
+        DatabaseReference myRef = database.getReference("recipes").child(recipeHashCode);
 
         myRef.setValue(this);
     }
@@ -87,5 +91,21 @@ public class UserRecipe {
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public static String getMd5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+
+            while (hashtext.length() < 32)
+                hashtext = "0" + hashtext;
+
+            return hashtext;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
