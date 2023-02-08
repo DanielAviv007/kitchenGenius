@@ -62,7 +62,6 @@ public class FeedActivity extends AppCompatActivity {
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FeedActivity.this,"Button has been clicked",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(FeedActivity.this, addRecipeActivity.class);
                 FeedActivity.this.startActivity(intent);
