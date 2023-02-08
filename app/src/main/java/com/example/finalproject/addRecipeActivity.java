@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.finalproject.Models.IngredientWidget;
 import com.example.finalproject.Models.UserIngredient;
 import com.example.finalproject.Models.UserRecipe;
+import com.example.finalproject.Storage.SystemStorage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -135,7 +136,7 @@ public class addRecipeActivity extends AppCompatActivity {
 
         else {
             // TODO: Pass original uid
-            new UserRecipe("danieldfjkdfjkd", s_recipeTitle, "somepath", ings, i_servings, i_prepTime, s_instruction);
+            new UserRecipe(SystemStorage.getCurrentUID(), s_recipeTitle, "somepath", ings, i_servings, i_prepTime, s_instruction);
         }
 
     }
