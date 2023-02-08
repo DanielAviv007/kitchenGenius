@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.finalproject.FeedActivity;
 import com.example.finalproject.R;
+import com.example.finalproject.Storage.SystemStorage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -59,6 +60,10 @@ public class LoginFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        String currentUID = task.getResult().getUser().getUid();
+
+                                        SystemStorage.setCurrentUID(currentUID);
+
                                         Intent intent = new Intent();
                                         intent.setClass(getActivity(), FeedActivity.class);
                                         getActivity().startActivity(intent);
