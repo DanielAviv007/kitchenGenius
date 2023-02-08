@@ -1,6 +1,7 @@
 package com.example.finalproject.Adapters;
-
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.Listeners.RecipeClickListener;
+import com.example.finalproject.Models.FavouriteRecipe;
 import com.example.finalproject.Models.Recipe;
 import com.example.finalproject.R;
+import com.example.finalproject.Storage.SystemStorage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,8 +63,42 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
         holder.imageView_addToFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),String.format("%s was added to favourites", holder.textView_title.getText().toString()),Toast.LENGTH_SHORT).show();
-                holder.imageView_addToFavourite.setImageResource(R.drawable.ic_added_to_favourites);
+                ImageView favouriteImage = holder.imageView_addToFavourite;
+                Drawable currentImage = favouriteImage.getDrawable();
+                Drawable checkedImage = holder.checked;
+
+                if (currentImage.getConstantState().equals(checkedImage.getConstantState())) {
+                    Toast.makeText(v.getContext(),String.format("%s was removed from favourites", holder.textView_title.getText().toString()),Toast.LENGTH_SHORT).show();
+                    holder.imageView_addToFavourite.setImageResource(R.drawable.ic_add_to_favourite);
+                    removeElementFromFavouriteRecipes(SystemStorage.getCurrentUID(), String.valueOf(list.get(holder.getAdapterPosition()).id), FirebaseDatabase.getInstance());
+                } else {
+                    Toast.makeText(v.getContext(),String.format("%s was added to favourites", holder.textView_title.getText().toString()),Toast.LENGTH_SHORT).show();
+                    holder.imageView_addToFavourite.setImageResource(R.drawable.ic_added_to_favourites);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("favourite_recipes");
+
+                    ref.push().setValue(new FavouriteRecipe(SystemStorage.getCurrentUID(), String.valueOf(list.get(holder.getAdapterPosition()).id)));
+                }
+            }
+            public void removeElementFromFavouriteRecipes(String uid, String recipeId, FirebaseDatabase database) {
+                DatabaseReference ref = database.getReference("favourite_recipes");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                            if (snapshot.child("uid").getValue().equals(uid) && snapshot.child("recipeID").getValue().equals(recipeId)) {
+                                snapshot.getRef().removeValue();
+                                break;
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("Firebase", "onCancelled", databaseError.toException());
+                    }
+                });
             }
         });
     }
@@ -74,6 +116,7 @@ class  RecipeViewHolder extends RecyclerView.ViewHolder{
     TextView textView_likes;
     ImageView imageView_dish;
     ImageView imageView_addToFavourite;
+    Drawable checked;
 
     public RecipeViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -84,5 +127,7 @@ class  RecipeViewHolder extends RecyclerView.ViewHolder{
         textView_likes = itemView.findViewById(R.id.textView_likes);
         imageView_dish = itemView.findViewById(R.id.imageView_dish);
         imageView_addToFavourite = itemView.findViewById(R.id.imageView_fav);
+
+        checked = itemView.getContext().getResources().getDrawable(R.drawable.ic_added_to_favourites);
     }
 }
