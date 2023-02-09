@@ -19,9 +19,19 @@
         <item>drink</item>
     </string-array>
     <string-array name="unit_options">
-        <item>gram</item>
-        <item>kg</item>
-        <item>cup</item>
+        <item>Gram</item>
+        <item>Kilogram</item>
+        <item>Ounce</item>
+        <item>Pound</item>
+        <item>Milliliter</item>
+        <item>Liter</item>
+        <item>Fluid Ounce</item>
+        <item>Cup</item>
+        <item>Teaspoon</item>
+        <item>Tablespoon</item>
+        <item>Piece</item>
+        <item>Clove</item>
+        <item>Package</item>
     </string-array>
     <string-array name="servings_options">
         <item>1</item>

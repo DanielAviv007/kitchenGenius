@@ -1,7 +1,9 @@
 package com.example.finalproject.Adapters;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.autofill.Dataset;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,11 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalproject.FeedActivity;
 import com.example.finalproject.Models.UserRecipe;
 import com.example.finalproject.R;
+import com.example.finalproject.UserRecipeDetailsActivity;
+import com.example.finalproject.addRecipeActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -86,17 +91,16 @@ public class UserRecipeAdapter extends RecyclerView.Adapter<UserRecipeAdapter.My
         userDishServings.setText(String.valueOf(dataSet.get(listPosition).getServings()));
         userDishTime.setText(String.valueOf(dataSet.get(listPosition).getTimeInMinutes()));
 
-// TODO:
-//        userRecipeCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle = new Bundle();
-//                int num = listPosition;
-//                String position = String.valueOf(num);
-//                bundle.putString("characterId",position);
-//                Navigation.findNavController(view).navigate(R.id.action_blankFragmentHome_to_blankFragmentDescription,bundle);
-//            }
-//        });
+        userRecipeCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserRecipeDetailsActivity.userRecipe = dataSet.get(listPosition);
+
+                Intent intent = new Intent();
+                intent.setClass(view.getContext(), UserRecipeDetailsActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
