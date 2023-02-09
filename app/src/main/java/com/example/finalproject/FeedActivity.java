@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,6 +21,14 @@ import com.example.finalproject.Adapters.RecipeAdapter;
 import com.example.finalproject.Listeners.RandomRecipeResponseListener;
 import com.example.finalproject.Listeners.RecipeClickListener;
 import com.example.finalproject.Models.RandomRecipeApiResponse;
+import com.example.finalproject.Models.UserIngredient;
+import com.example.finalproject.Models.UserRecipe;
+import com.example.finalproject.Storage.SystemStorage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,8 @@ public class FeedActivity extends AppCompatActivity {
     List<String> tags = new ArrayList<>();
     SearchView searchView;
     ImageView addRecipe;
+
+    Button goToUploaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +87,17 @@ public class FeedActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         manager = new RequestManager(this);
+
+        goToUploaded = findViewById(R.id.goToUploaded);
+        goToUploaded.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(FeedActivity.this, UploadedRecipesActivity.class);
+
+                FeedActivity.this.startActivity(intent);
+            }
+        });
         //manager.getRandomRecipes(randomRecipeResponseListener);
         //dialog.show();
     }
