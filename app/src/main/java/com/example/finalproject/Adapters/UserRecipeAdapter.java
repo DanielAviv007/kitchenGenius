@@ -86,7 +86,7 @@ public class UserRecipeAdapter extends RecyclerView.Adapter<UserRecipeAdapter.My
             });
         }
         else
-            userDishImage.setImageResource(R.drawable.ic_launcher_background);
+            userDishImage.setImageResource(R.drawable.default_image);
         userDishTitle.setText(dataSet.get(listPosition).getTitle());
         userDishServings.setText(String.valueOf(dataSet.get(listPosition).getServings()));
         userDishTime.setText(String.valueOf(dataSet.get(listPosition).getTimeInMinutes()));

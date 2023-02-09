@@ -26,14 +26,6 @@
                 android:layout_alignParentStart="true"
                 />
 
-            <ImageView
-                android:id="@+id/imageView_add_new_recipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minWidth="60dp"
-                android:minHeight="60dp"
-                android:src="@drawable/ic_add_new_recipe" />
-
             <Spinner
                 android:id="@+id/spinner_tags"
                 android:entries="@array/categories"
@@ -57,15 +49,42 @@
         android:background="@drawable/edit_form">
 
     </androidx.appcompat.widget.SearchView>
-
-    <Button
-        android:id="@+id/goToUploaded"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF0000"
-        android:backgroundTint="#FF0000"
-        android:text="Button"
-        android:textColor="#000000" />
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <Button
+            android:id="@+id/goToUploaded"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="MY RECIPES"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/yellow"
+            android:textColor="#4D4D4D"
+            android:layout_marginRight="5dp"/>
+        <ImageView
+            android:id="@+id/imageView_add_new_recipe"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="60dp"
+            android:minHeight="50dp"
+            android:src="@drawable/ic_add_new_recipe" />
+        <Button
+            android:id="@+id/goToFavourites"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Favourites"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/yellow"
+            android:textColor="#4D4D4D"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_recipes"

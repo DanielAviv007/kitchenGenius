@@ -87,16 +87,17 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     private void uploadRecipe() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading File...");
-        progressDialog.show();
-
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH);
         Date now = new Date();
         String fileName = formatter.format(now);
         storageReference = FirebaseStorage.getInstance().getReference("images/" + fileName);
 
-        if (imageUri != null)
+        if (imageUri != null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading File...");
+            progressDialog.show();
+
+
             storageReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -115,6 +116,8 @@ public class addRecipeActivity extends AppCompatActivity {
 
                         }
                     });
+        }
+
         String s_recipeTitle = recipeTitle.getText().toString();
         String s_instruction = instruction.getText().toString();
         String[] ingredients_names = {ingredients[0].ingredientName.getText().toString(), ingredients[1].ingredientName.getText().toString(), ingredients[2].ingredientName.getText().toString()};
@@ -134,9 +137,12 @@ public class addRecipeActivity extends AppCompatActivity {
         else if (imageUri == null && (s_instruction == null || s_instruction.isEmpty()))
             Toast.makeText(addRecipeActivity.this, "In order to create a recipe, you must upload an image or fill the instructions", Toast.LENGTH_SHORT).show();
 
-        else {
+        else
             new UserRecipe(SystemStorage.getCurrentUID(), s_recipeTitle, imageUri != null ? fileName : "NO_IMAGE", ings, i_servings, i_prepTime, s_instruction);
-        }
+
+        Intent intent = new Intent();
+        intent.setClass(addRecipeActivity.this, UploadedRecipesActivity.class);
+        addRecipeActivity.this.startActivity(intent);
     }
 
 }

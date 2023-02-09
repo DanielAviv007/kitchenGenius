@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.finalproject.Models.IngredientWidget;
 import com.example.finalproject.Models.UserRecipe;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -18,12 +19,15 @@ public class UserRecipeDetailsActivity extends AppCompatActivity {
     public static UserRecipe userRecipe;
 
     TextView userDetailsDishName;
-    ImageView userDetailsDishImage;
+    ShapeableImageView userDetailsDishImage;
     TextView userDetailsDishInstructions;
 
     TextView[] ingsName;
     TextView[] ingsUnit;
     TextView[] ingsQuantity;
+
+    TextView prepTimeDetails;
+    TextView servingsDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class UserRecipeDetailsActivity extends AppCompatActivity {
         ingsName = new TextView[]{findViewById(R.id.mainIngredient1NameDetails), findViewById(R.id.mainIngredient2NameDetails), findViewById(R.id.mainIngredient3NameDetails)};
         ingsUnit = new TextView[]{findViewById(R.id.mainIngredient1UnitDetails), findViewById(R.id.mainIngredient2UnitDetails), findViewById(R.id.mainIngredient3UnitDetails)};
         ingsQuantity = new TextView[]{findViewById(R.id.mainIngredient1QuantityDetails), findViewById(R.id.mainIngredient2QuantityDetails), findViewById(R.id.mainIngredient3QuantityDetails)};
+
+        prepTimeDetails = findViewById(R.id.prepTimeDetails);
+        servingsDetails = findViewById(R.id.servingsDetails);
 
         userDetailsDishName.setText(userRecipe.getTitle());
 
@@ -53,7 +60,7 @@ public class UserRecipeDetailsActivity extends AppCompatActivity {
             });
         }
         else
-            userDetailsDishImage.setImageResource(R.drawable.ic_launcher_background);
+            userDetailsDishImage.setImageResource(R.drawable.default_image);
 
         userDetailsDishInstructions.setText(userRecipe.getInstructions());
 
@@ -62,5 +69,8 @@ public class UserRecipeDetailsActivity extends AppCompatActivity {
             ingsUnit[i].setText(userRecipe.getIngredients().get(i).getUnit());
             ingsQuantity[i].setText(String.valueOf(userRecipe.getIngredients().get(i).getQuantity()));
         }
+
+        prepTimeDetails.setText(String.format("%s minutes", String.valueOf(userRecipe.getTimeInMinutes())));
+        servingsDetails.setText(String.format("%s people", String.valueOf(userRecipe.getServings())));
     }
 }
