@@ -44,6 +44,7 @@ public class FeedActivity extends AppCompatActivity {
     ImageView addRecipe;
 
     Button goToUploaded;
+    Button goToFavourites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +99,18 @@ public class FeedActivity extends AppCompatActivity {
                 FeedActivity.this.startActivity(intent);
             }
         });
-        //manager.getRandomRecipes(randomRecipeResponseListener);
-        //dialog.show();
+
+        goToFavourites = findViewById(R.id.goToFavourites);
+        goToFavourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(FeedActivity.this, FavouriteActivity.class);
+
+                FeedActivity.this.startActivity(intent);
+            }
+        });
+
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
@@ -110,14 +121,11 @@ public class FeedActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new GridLayoutManager(FeedActivity.this, 1));
             recipeAdapter = new RecipeAdapter(FeedActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(recipeAdapter);
-
         }
 
         @Override
         public void didError(String message) {
-
             Toast.makeText(FeedActivity.this, message, Toast.LENGTH_SHORT);
-
         }
     };
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -127,7 +135,6 @@ public class FeedActivity extends AppCompatActivity {
             tags.add(adapterView.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener,tags);
             dialog.show();
-
         }
 
         @Override
