@@ -4,59 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addRecipeActivity"
+    android:layout_margin="15dp"
     android:orientation="vertical"
-    android:layout_margin="15dp">
-
-    <LinearLayout
+    tools:context=".addRecipeActivity">
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:cardCornerRadius="10dp"
+        android:layout_margin="10dp">
 
-        <Button
-            android:id="@+id/selectImageBtn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select an image"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/yellow">
-        </Button>
-        <ImageView
-            android:id="@+id/imageView_new_recipe_image"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/default_image">
-        </ImageView>
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView_new_recipe_image"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:src="@drawable/default_image"/>
+            <Button
+                android:id="@+id/selectImageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/yellow"
+                android:layout_marginRight="20dp"
+                android:text="Select an image"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/recipeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter recipe title..."
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:textColorHint="#7F7F7F"
-        android:inputType="text"
         android:background="@drawable/edit_form"
-        android:padding="16dp"/>
+        android:hint="Enter recipe title..."
+        android:inputType="text"
+        android:padding="16dp"
+        android:textColorHint="#7F7F7F" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/mainIngredient1Name"
-            android:layout_weight="9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="First main ingredient"
-            android:textColorHint="#7F7F7F"
-            android:inputType="text"
+            android:layout_weight="9"
             android:background="@drawable/edit_form"
+            android:drawableLeft="@drawable/ic_ingredient"
+            android:drawablePadding="8dp"
+            android:inputType="text"
             android:padding="16dp"
-            />
+            android:textColorHint="#7F7F7F" />
 
         <Spinner
             android:id="@+id/unitSpinner1"
@@ -72,23 +78,24 @@
             android:inputType="number"
             android:textColorHint="#7F7F7F" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/mainIngredient2Name"
-            android:layout_weight="9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Second main ingredient"
-            android:textColorHint="#7F7F7F"
-            android:inputType="text"
+            android:layout_weight="9"
             android:background="@drawable/edit_form"
+            android:drawableLeft="@drawable/ic_ingredient"
+            android:drawablePadding="8dp"
+            android:inputType="text"
             android:padding="16dp"
-            />
+            android:textColorHint="#7F7F7F" />
 
         <Spinner
             android:id="@+id/unitSpinner2"
@@ -104,23 +111,24 @@
             android:inputType="number"
             android:textColorHint="#7F7F7F" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/mainIngredient3Name"
-            android:layout_weight="9"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Third main ingredient"
-            android:textColorHint="#7F7F7F"
-            android:inputType="text"
+            android:layout_weight="9"
             android:background="@drawable/edit_form"
+            android:drawableLeft="@drawable/ic_ingredient"
+            android:drawablePadding="8dp"
+            android:inputType="text"
             android:padding="16dp"
-            />
+            android:textColorHint="#7F7F7F" />
 
         <Spinner
             android:id="@+id/unitSpinner3"
@@ -140,32 +148,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
         <EditText
             android:id="@+id/prepTime"
-            android:layout_weight="4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:layout_weight="4"
             android:background="@drawable/edit_form"
             android:drawableLeft="@drawable/ic_prep_time"
-
             android:drawablePadding="8dp"
-            android:padding="8dp"/>
+
+            android:inputType="numberDecimal"
+            android:padding="8dp" />
+
         <ImageView
-            android:src="@drawable/ic_servings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            />
+            android:src="@drawable/ic_servings" />
+
         <Spinner
             android:id="@+id/servingsSpinner"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:entries="@array/servings_options" />
     </LinearLayout>
 
@@ -174,9 +184,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_form"
-        android:padding="5dp"
         android:hint="Instructions"
-        android:textColorHint="#7F7F7F"/>
+        android:padding="5dp"
+        android:textColorHint="#7F7F7F" />
 
     <Button
         android:id="@+id/submitBtn"
@@ -186,5 +196,5 @@
         android:padding="16dp"
         android:text="Submit"
         android:textSize="18sp"
-        app:cornerRadius="10dp"/>
+        app:cornerRadius="10dp" />
 </LinearLayout>
