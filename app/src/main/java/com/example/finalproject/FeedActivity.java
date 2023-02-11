@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
-    ProgressDialog dialog;
     RequestManager manager;
     RecipeAdapter recipeAdapter;
     RecyclerView recyclerView;
@@ -51,9 +50,6 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        dialog = new ProgressDialog(this);
-        dialog.setTitle("Loading...");
-
         searchView = findViewById(R.id.searchView_home);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -61,7 +57,6 @@ public class FeedActivity extends AppCompatActivity {
                 tags.clear();
                 tags.add(query);
                 manager.getRandomRecipes(randomRecipeResponseListener,tags);
-                dialog.show();
                 return true;
             }
 
@@ -134,7 +129,6 @@ public class FeedActivity extends AppCompatActivity {
             tags.clear();
             tags.add(adapterView.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener,tags);
-            dialog.show();
         }
 
         @Override
