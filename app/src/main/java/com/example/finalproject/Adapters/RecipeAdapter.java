@@ -78,7 +78,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = database.getReference("favourite_recipes");
 
-                    ref.push().setValue(new FavouriteRecipe(SystemStorage.getCurrentUID(), String.valueOf(list.get(holder.getAdapterPosition()).id)));
+                    ref.push().setValue(new FavouriteRecipe(list.get(holder.getAdapterPosition()), SystemStorage.getCurrentUID()));
                 }
             }
             public void removeElementFromFavouriteRecipes(String uid, String recipeId, FirebaseDatabase database) {
@@ -87,11 +87,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                            if (snapshot.child("uid").getValue().equals(uid) && snapshot.child("recipeID").getValue().equals(recipeId)) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            if (snapshot.child("uid").getValue().equals(uid) && String.valueOf(snapshot.child("recipe").child("id").getValue()).equals(recipeId)) {
                                 snapshot.getRef().removeValue();
                                 break;
                             }
+                        }
                     }
 
                     @Override
