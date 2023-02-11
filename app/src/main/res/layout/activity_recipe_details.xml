@@ -5,14 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/orange"
     tools:context=".RecipeDetailsActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        app:title="Recipe Details"
-        app:titleTextColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,9 +19,9 @@
             <TextView
                 android:id="@+id/textView_dish_name"
                 android:text="Recipe Name"
-                android:textSize="20sp"
+                android:textSize="40sp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/yellow_orange"
                 android:padding="8dp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -37,27 +31,52 @@
                 android:text="Source"
                 android:gravity="center"
                 android:textStyle="italic"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textColor="@color/yellow"
+                android:textSize="20sp"
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/imageView_dish_image"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="20dp"
+                android:background="@drawable/edit_form"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView_dish_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="5dp"
+                    android:padding="20dp"
+                    app:shapeAppearanceOverlay="@style/roundedImageView"/>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:text="Instructions"
+                android:textStyle="bold"
+                android:textColor="@color/yellow"
+                android:textSize="30sp"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_dish_instructions"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"/>
             <TextView
                 android:text="Ingredients"
                 android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textColor="@color/yellow"
+                android:textSize="30sp"
                 android:padding="8dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -66,8 +85,7 @@
                 android:id="@+id/recycler_dish_ingredients"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 
