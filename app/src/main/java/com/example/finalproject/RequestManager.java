@@ -5,10 +5,13 @@ import android.content.Context;
 import com.example.finalproject.Listeners.InstructionsListener;
 import com.example.finalproject.Listeners.RandomRecipeResponseListener;
 import com.example.finalproject.Listeners.RecipeDetailsListener;
+import com.example.finalproject.Listeners.RecipeFavouriteListener;
 import com.example.finalproject.Models.InstructionsResponse;
 import com.example.finalproject.Models.RandomRecipeApiResponse;
 import com.example.finalproject.Models.RecipeDetailsResponse;
+import com.example.finalproject.Models.RecipeFavouriteResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,7 +51,27 @@ public class RequestManager {
             @Override
             public void onFailure(Call<RandomRecipeApiResponse> call, Throwable t) {
                listener.didError(t.getMessage());
+            }
+        });
+    }
 
+    public void getFavouriteRecipes(RecipeFavouriteListener listener, ArrayList<String> ids) {
+        CallBulkRecipes callBulkRecipes = retrofit.create(CallBulkRecipes.class);
+        Call<RecipeFavouriteResponse> call = callBulkRecipes.callBulkRecipe(ids, context.getString(R.string.api_key));
+
+        call.enqueue(new Callback<RecipeFavouriteResponse>() {
+            @Override
+            public void onResponse(Call<RecipeFavouriteResponse> call, Response<RecipeFavouriteResponse> response) {
+                if (response.isSuccessful()) {
+                    RecipeFavouriteResponse recipeFavouriteResponse = response.body();
+                    listener.didFetch(recipeFavouriteResponse, response.message());
+                }
+                else
+                    listener.didError(response.message());
+            }
+            @Override
+            public void onFailure(Call<RecipeFavouriteResponse> call, Throwable t) {
+                listener.didError(t.getMessage());
             }
         });
     }
@@ -64,7 +87,6 @@ public class RequestManager {
                     return;
                 }
                 listener.didFetch(response.body(), response.message());
-
             }
 
             @Override
@@ -107,6 +129,13 @@ Call<RandomRecipeApiResponse> callRandomRecipe(
         @GET("recipes/{id}/information")
         Call<RecipeDetailsResponse> callRecipeDetails(
                 @Path("id") int id,
+                @Query("apiKey") String apiKey
+        );
+    }
+    private interface CallBulkRecipes{
+        @GET("recipes/informationBulk")
+        Call<RecipeFavouriteResponse> callBulkRecipe(
+                @Query("ids") ArrayList<String> ids,
                 @Query("apiKey") String apiKey
         );
     }

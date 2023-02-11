@@ -85,8 +85,5 @@ public class UploadedRecipesActivity extends AppCompatActivity {
 
             }
         });
-
-
-//        Toast.makeText(this, String.valueOf(SystemStorage.getAllRecipes().size()),Toast.LENGTH_SHORT).show();
     }
 }
