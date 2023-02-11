@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.AdminActivity;
 import com.example.finalproject.FeedActivity;
 import com.example.finalproject.R;
 import com.example.finalproject.Storage.SystemStorage;
@@ -61,12 +62,17 @@ public class LoginFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         String currentUID = task.getResult().getUser().getUid();
-
                                         SystemStorage.setCurrentUID(currentUID);
 
-                                        Intent intent = new Intent();
-                                        intent.setClass(getActivity(), FeedActivity.class);
-                                        getActivity().startActivity(intent);
+                                        if (task.getResult().getUser().getEmail().equals("admin@admin.com")) {
+                                            Intent intent = new Intent();
+                                            intent.setClass(getActivity(), AdminActivity.class);
+                                            getActivity().startActivity(intent);
+                                        } else {
+                                            Intent intent = new Intent();
+                                            intent.setClass(getActivity(), FeedActivity.class);
+                                            getActivity().startActivity(intent);
+                                        }
                                     } else {
                                         Toast.makeText(getActivity(),"Email and password do not match.",Toast.LENGTH_SHORT).show();
                                     }

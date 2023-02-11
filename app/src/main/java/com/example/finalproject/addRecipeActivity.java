@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class addRecipeActivity extends AppCompatActivity {
+    public static UserRecipe userRecipe = null;
     Uri imageUri;
     StorageReference storageReference;
     ProgressDialog progressDialog;
@@ -69,6 +71,32 @@ public class addRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { uploadRecipe(); }
         });
+
+        if (userRecipe != null) {
+            recipeTitle.setText(userRecipe.getTitle());
+
+            for (int i = 0; i < 3; ++i) {
+                ingredients[i].ingredientName.setText(userRecipe.getIngredients().get(i).getName());
+                ingredients[i].quantity.setText(String.valueOf(userRecipe.getIngredients().get(i).getQuantity()));
+            }
+            prepTime.setText(String.valueOf(userRecipe.getTimeInMinutes()));
+            instruction.setText(userRecipe.getInstructions());
+
+            if (!userRecipe.getPhotoPath().equals("NO_IMAGE")) {
+                String photoPath = String.format("gs://recipe-193b1.appspot.com/images/%s", userRecipe.getPhotoPath());
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReferenceFromUrl(photoPath);
+
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(recipeImage);
+                    }
+                });
+            }
+            else
+                recipeImage.setImageResource(R.drawable.default_image);
+        }
     }
     private void selectImage() {
         Intent intent = new Intent();
@@ -136,13 +164,26 @@ public class addRecipeActivity extends AppCompatActivity {
 
         else if (imageUri == null && (s_instruction == null || s_instruction.isEmpty()))
             Toast.makeText(addRecipeActivity.this, "In order to create a recipe, you must upload an image or fill the instructions", Toast.LENGTH_SHORT).show();
-
+        else if (SystemStorage.getCurrentUID().equals("vRtxwdfLhMRBffxhJxJgYo0G5sK2"))
+            new UserRecipe(userRecipe.getUid(), s_recipeTitle, imageUri != null ? fileName : "NO_IMAGE", ings, i_servings, i_prepTime, s_instruction);
         else
             new UserRecipe(SystemStorage.getCurrentUID(), s_recipeTitle, imageUri != null ? fileName : "NO_IMAGE", ings, i_servings, i_prepTime, s_instruction);
 
-        Intent intent = new Intent();
-        intent.setClass(addRecipeActivity.this, UploadedRecipesActivity.class);
-        addRecipeActivity.this.startActivity(intent);
+        if (SystemStorage.getCurrentUID().equals("vRtxwdfLhMRBffxhJxJgYo0G5sK2")) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent();
+            intent.setClass(addRecipeActivity.this, AdminActivity.class);
+            addRecipeActivity.this.startActivity(intent);
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(addRecipeActivity.this, FeedActivity.class);
+            addRecipeActivity.this.startActivity(intent);
+        }
     }
 
 }
