@@ -2,11 +2,14 @@ package com.example.finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.finalproject.Adapters.AdminRecipeAdapter;
 import com.example.finalproject.Adapters.UserRecipeAdapter;
@@ -27,6 +30,7 @@ public class AdminActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private AdminRecipeAdapter adapter;
     private DatabaseReference database;
+    private ImageFilterView adminLogoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +76,16 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
-    }
 
-    public void deleteRecipe() {
+        adminLogoutBtn = findViewById(R.id.adminLogoutBtn);
+        adminLogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(AdminActivity.this, MainActivity.class);
 
+                AdminActivity.this.startActivity(intent);
+            }
+        });
     }
 }

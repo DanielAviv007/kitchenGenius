@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +45,7 @@ public class FeedActivity extends AppCompatActivity {
 
     Button goToUploaded;
     Button goToFavourites;
+    ImageFilterView logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,16 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
 
+        logOut = findViewById(R.id.feedLogoutBtn);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(FeedActivity.this, MainActivity.class);
+
+                FeedActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
