@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.finalproject.Adapters.UserRecipeAdapter;
@@ -30,6 +33,9 @@ public class UploadedRecipesActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
     private UserRecipeAdapter adapter;
     private DatabaseReference database;
+
+    Button goToFeedFromMyRecipes;
+    Button goToFavouritesFromMyRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +91,25 @@ public class UploadedRecipesActivity extends AppCompatActivity {
 
             }
         });
+        goToFeedFromMyRecipes = findViewById(R.id.goToFeedFromMyRecipes);
+        goToFeedFromMyRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(UploadedRecipesActivity.this, FeedActivity.class);
 
+                UploadedRecipesActivity.this.startActivity(intent);
+            }
+        });
+        goToFavouritesFromMyRecipes = findViewById(R.id.goToFavouritesFromMyRecipes);
+        goToFavouritesFromMyRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(UploadedRecipesActivity.this, FavouriteActivity.class);
 
-//        Toast.makeText(this, String.valueOf(SystemStorage.getAllRecipes().size()),Toast.LENGTH_SHORT).show();
+                UploadedRecipesActivity.this.startActivity(intent);
+            }
+        });
     }
 }
