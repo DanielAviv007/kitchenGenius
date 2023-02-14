@@ -45,7 +45,7 @@
             android:textColor="#4D4D4D"
             android:layout_marginRight="5dp"/>
         <ImageView
-            android:id="@+id/imageView_add_new_recipe"
+            android:id="@+id/addNewRecipeFromUploaded"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

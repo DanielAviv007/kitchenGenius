@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.finalproject.Adapters.UserRecipeAdapter;
@@ -36,6 +37,7 @@ public class UploadedRecipesActivity extends AppCompatActivity {
 
     Button goToFeedFromMyRecipes;
     Button goToFavouritesFromMyRecipes;
+    ImageView addNewRecipeFromUploaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,16 @@ public class UploadedRecipesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(UploadedRecipesActivity.this, FavouriteActivity.class);
+
+                UploadedRecipesActivity.this.startActivity(intent);
+            }
+        });
+        addNewRecipeFromUploaded = findViewById(R.id.addNewRecipeFromUploaded);
+        addNewRecipeFromUploaded.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(UploadedRecipesActivity.this, addRecipeActivity.class);
 
                 UploadedRecipesActivity.this.startActivity(intent);
             }
